@@ -64,7 +64,7 @@
                             @endif
                         </div>
 
-                        <button type="submit" name="post_comment" class="btn btn-primary">Submit</button>
+                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
                     </form>
                 </div>
 
