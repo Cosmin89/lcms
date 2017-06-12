@@ -29,10 +29,9 @@ class HomeController extends Controller
     }
 
     public function search(Request $request, Post $post){
-        $search = $request->search;
 
-        $posts = $post->search($search)->paginate(3);
-
+        $posts = $post->search($request->input('search'))->get();
+  
         return view('post.results', compact('posts'));
     }
 }

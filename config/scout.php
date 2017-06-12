@@ -56,7 +56,14 @@ return [
 
     'algolia' => [
         'id' => env('ALGOLIA_APP_ID', 'KRGOD3VQPY'),
-        'secret' => env('ALGOLIA_SECRET', '3a4ca43d4240f2e282662b7f7850cfbf'),
+        'secret' => env('ALGOLIA_SECRET', '1ab4f25352f926a7fc8ff5ae66bcc70e'),
     ],
+
+    // 'elasticsearch' => [
+    //     'index' => env('ELASTICSEARCH_INDEX', 'laravel'),
+    //     'config' => [
+    //     'hosts' => [ env('ELASTICSEARCH_HOST', 'localhost'),],
+    //     ],
+    // ],
 
 ];

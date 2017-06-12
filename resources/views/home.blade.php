@@ -40,5 +40,7 @@
 
             @include('layouts.partials._footer')
         </div>
+
     </div>
+    
 @endsection
