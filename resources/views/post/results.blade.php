@@ -32,7 +32,9 @@
                     @endforeach
 
                     <!-- Pager -->
-             
+                @else
+                <h3>No posts found.</h3>
+                    
                 @endif
             </div>
 

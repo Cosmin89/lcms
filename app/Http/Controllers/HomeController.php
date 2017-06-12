@@ -30,8 +30,10 @@ class HomeController extends Controller
 
     public function search(Request $request, Post $post){
 
-        $posts = $post->search($request->input('search'))->get();
-  
+        if($request->has('search')) {
+            $posts = $post->search($request->input('search'))->get();
+        }
+
         return view('post.results', compact('posts'));
     }
 }
