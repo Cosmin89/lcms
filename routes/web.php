@@ -24,4 +24,6 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('/post/{post}', 'PostController@show')->name('post.show');
     Route::get('/category/{category}', 'CategoryController@show')->name('category.show');
     Route::post('/post/{post}/comment', 'CommentController@store')->name('comment.store');
+
+    Route::post('/search', 'HomeController@search')->name('search');
 });

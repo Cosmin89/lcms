@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Laravel\Scout\Searchable; 
 use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
+    use Searchable;
+
     protected $fillable = [
         'username', 'first_name', 'last_name', 'email', 'password', 'user_image', 'user_role'
     ];
@@ -18,5 +21,10 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany('App\Comment');
+    }
+
+    public function searchableAs()
+    {
+        return 'posts_index';
     }
 }

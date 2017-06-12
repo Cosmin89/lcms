@@ -4,14 +4,17 @@
     <!-- Blog Search Well -->
     <div class="well">
         <h4>Blog Search</h4>
-        <div class="input-group">
-            <input type="text" class="form-control">
-            <span class="input-group-btn">
-                <button class="btn btn-default" type="button">
-                    <span class="glyphicon glyphicon-search"></span>
-            </button>
-            </span>
-        </div>
+         <form role="search" method="POST" action="{{ route('search') }}">
+                {{ csrf_field() }}
+
+                <div class="form-group">
+                    <input type="text" name="search" class="form-control" placeholder="Search">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Search</button>
+        </form>
+
+
         <!-- /.input-group -->
     </div>
 
