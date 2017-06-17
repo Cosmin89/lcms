@@ -2,15 +2,15 @@
 <html lang="{{ app()->getLocale() }}">
     @include('layouts.partials._head')
 <body>
-    <div id="app">
-        @include('layouts.partials._navigation')
-        <!-- Page Content -->
-        @yield('content')
+    @include('layouts.partials._navigation')
 
-    </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    <div class="container">
+        <div class="row">
+            @yield('content')
+            @include('layouts.partials._widgets')
+        </div>
+    
+    @include('layouts.partials._footer')
 </body>
 </html>
 
