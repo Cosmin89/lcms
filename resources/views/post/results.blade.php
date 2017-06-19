@@ -33,4 +33,6 @@
             
         @endif
     </div>
+    
+    @include('layouts.partials._widgets')
 @endsection

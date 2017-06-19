@@ -6,8 +6,20 @@
         @include('admin.layouts.partials.admin_navigation')
         
         <div id="page-wrapper">
-            <!-- Page Content -->
-            @yield('content')
+            <div class="container-fluid">
+                <!-- Page Content -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h1 class="page-header">
+                            Welcome to admin
+                            <small>{{ Auth::user()->username }}</small>
+                        </h1>
+                        
+                    </div>
+                </div>
+                <!-- /.row -->
+                @yield('content')
+            </div>
         </div>
     </div>
 

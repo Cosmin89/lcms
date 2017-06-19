@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\User;
 use App\Category;
 use Illuminate\Support\ServiceProvider;
 use Schema;
@@ -19,7 +20,8 @@ class AppServiceProvider extends ServiceProvider
         Schema::defaultStringLength(191);
 
         $categories = Category::all();
-        View::share('categories', $categories);
+        $users = User::all();
+        View::share(['categories' => $categories, 'users' => $users]);
     }
 
     /**

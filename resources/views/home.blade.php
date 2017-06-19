@@ -33,4 +33,6 @@
         {{ $posts->links() }}
 
     </div>
+    
+    @include('layouts.partials._widgets')
 @endsection

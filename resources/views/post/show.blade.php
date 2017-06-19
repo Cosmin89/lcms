@@ -87,4 +87,6 @@
 
         <hr>
     </div>
+    
+    @include('layouts.partials._widgets')
 @endsection

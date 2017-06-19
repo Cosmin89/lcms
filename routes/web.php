@@ -24,7 +24,9 @@ Route::post('/search', 'HomeController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function() {
     Route::post('/post/{post}/comment', 'CommentController@store')->name('comment.store');
+    Route::get('/admin', 'Admin\AdminController@index')->name('admin');
+    Route::get('/admin/post/create', 'PostController@create')->name('post.create');
+    Route::post('/admin/post', 'PostController@store')->name('post.store');
 });
 
 
-Route::get('/admin', 'Admin\AdminController@index')->name('admin');

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Post;
 use Illuminate\Http\Request;
+use App\Http\Requests\PostFormRequest;
 
 class PostController extends Controller
 {
@@ -24,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.post.create');
     }
 
     /**
@@ -33,9 +34,21 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostFormRequest $request)
     {
-        //
+        $post = new Post();
+        $post->title = $request->title;
+        $post->category_id = $request->post_category;
+        $post->author = $request->post_user;
+        $post->user = $request->post_user;
+        $post->status = $request->post_status;
+        $post->tags = $request->tags;
+        $post->content = $request->content;
+
+        $post->save();
+
+        return redirect()->route('admin');
+        
     }
 
     /**
