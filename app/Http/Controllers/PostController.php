@@ -14,8 +14,10 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
-        //
+    {   
+        $posts = Post::all();
+
+        return view('admin.post.index', compact('posts'));
     }
 
     /**
@@ -70,7 +72,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('admin.post.edit', compact('post'));
     }
 
     /**
@@ -80,9 +82,19 @@ class PostController extends Controller
      * @param  \App\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PostFormRequest $request, Post $post)
     {
-        //
+        $post->title = $request->title;
+        $post->category_id = $request->post_category;
+        $post->user = $request->post_user;
+        $post->status = $request->post_status;
+        $post->tags = $request->tags;
+        $post->content = $request->content;
+
+        $post->save();
+
+        return redirect()->route('post.edit', $post->id)->with('status', 'Post updated successfully!');
+        
     }
 
     /**
@@ -93,6 +105,8 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        $post->delete();
+
+        return redirect()->route('post.index');
     }
 }
