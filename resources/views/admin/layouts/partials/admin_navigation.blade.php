@@ -47,7 +47,7 @@
                 <a href="#" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="posts_dropdown" class="collapse">
                     <li>
-                        <a href="{{ route('post.index') }}">View All Posts</a>
+                        <a href="{{ route('posts') }}">View All Posts</a>
                     </li>
                     <li>
                         <a href="{{ route('post.create') }}">Add Posts</a>
@@ -64,15 +64,15 @@
                 <a href="javascript:;" data-toggle="collapse" data-target="#users"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="users" class="collapse">
                     <li>
-                        <a href="#">View All Users</a>
+                        <a href="{{ route('users') }}">View All Users</a>
                     </li>
                     <li>
-                        <a href="#">Add User</a>
+                        <a href="{{ route('user.create') }}">Add User</a>
                     </li>
                 </ul>
             </li>
             <li class="active">
-                <a href="#"><i class="fa fa-fw fa-file"></i> Profile</a>
+                <a href="{{ route('user.profile', ['username' => Auth::user()->username]) }}"><i class="fa fa-fw fa-file"></i> Profile</a>
             </li>
         </ul>
     </div>
