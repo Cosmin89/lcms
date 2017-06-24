@@ -10,7 +10,7 @@ class Post extends Model
     use Searchable;
 
     protected $fillable = [
-        'category_id', 'title', 'author', 'user', 'content', 'tags', 'status'
+        'category_id', 'title', 'author', 'user', 'content', 'tags'
     ];
 
     public function category()
@@ -21,6 +21,36 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany('App\Comment');
+    }
+
+    public function statuses()
+    {
+        return $this->belongsToMany('App\Status', 'post_status', 'post_id', 'status_id');
+    }
+
+    public function hasAnyStatus($statuses)
+    {
+        if(is_array($statuses)) {
+            foreach($statuses as $status) {
+                if($this->hasStatus($status)) {
+                    return true;
+                }
+            }
+        } else {
+            if($this->hasStatus($status)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function hasStatus($status) {
+        if($this->statuses()->where('type', $status)->first()) {
+            return true;
+        }
+
+        return false;
     }
 
     public function searchableAs()

@@ -21,16 +21,23 @@
             <td>{{ $user->first_name }}</td>
             <td>{{ $user->last_name }}</td>
             <td>{{ $user->email }}</td>
-            
             <td>
-            <form action="{{ route('user.change_role', ['username' => $user->username]) }}" method="POST">
-                    {{ csrf_field() }}
-                    @if($user->user_role == 'admin')
-                        <input class="btn btn-success btn-sm" type="submit" name="user_role" value="subscribe">
+            <form action="{{ route('user.assign', ['username' => $user->username]) }}" method="post">
+                {{ csrf_field() }}
+                
+                <select name="role_user" id="">
+                @foreach($user->roles as $role)
+                <option value="{{ $role->name }}">{{ $role->name }}</option>
+                    @if($user->hasRole('admin'))
+                        <option value="subscriber">subscriber</option>
                     @else
-                        <input class="btn btn-success btn-sm" type="submit" name="user_role" value="admin">
+                        <option value="admin">admin</option>
                     @endif
-            </form>        
+                @endforeach
+                </select>
+                <button type="submit" class="btn btn-primary">Assign</button>
+                
+            </form>
             </td>
 
             <td><a class="btn btn-primary btn-sm" href="{{ route('user.profile', ['username' => $user->username]) }}">Edit</a></td>

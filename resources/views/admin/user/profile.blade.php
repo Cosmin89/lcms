@@ -29,14 +29,15 @@
     </div>
 
     <div class="form-group">
-        <label for="users">User</label>
-        <select name="user_role" id="">
-            <option value="{{ $user->user_role }}">{{ $user->user_role }}</option>
-            @if($user->user_role == 'admin') {
-                <option value='subscriber'>subscriber</option>
-            @else 
-                <option value='admin'>admin</option>
-            @endif
+        <select name="role_user" id="">
+            @foreach($user->roles as $role)
+            <option value="{{ $role->name }}">{{ $role->name }}</option>
+                @if($user->hasRole('admin'))
+                    <option value="subscriber">subscriber</option>
+                @else
+                    <option value="admin">admin</option>
+                @endif
+            @endforeach
         </select>
     </div>
 

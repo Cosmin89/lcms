@@ -14,9 +14,9 @@ class IsAdmin
      * @param  \Closure  $next
      * @return mixed
      */
-     public function handle($request, Closure $next)
+    public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->user_role == 'admin') {
+        if (Auth::user() && Auth::user()->authorizeRoles('admin')) {
             return $next($request);
         }
 

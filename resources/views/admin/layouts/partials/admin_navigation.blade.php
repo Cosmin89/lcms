@@ -67,7 +67,7 @@
                         <a href="{{ route('users') }}">View All Users</a>
                     </li>
                     <li>
-                        <a href="{{ route('user.create') }}">Add User</a>
+                        <a href="#">Add User</a>
                     </li>
                 </ul>
             </li>

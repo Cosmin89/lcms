@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Status;
 use App\Post;
 use Illuminate\Http\Request;
 
@@ -14,7 +15,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        
+      
     }
 
     /**
@@ -22,9 +23,13 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Post $post)
+    public function index()
     {
-        $posts = $post->paginate(3);
+        $published_posts = Status::with('posts')->where('type', 'published')->get();
+
+        foreach($published_posts as $published)
+            $posts = $published->posts()->paginate(2);
+
         return view('home', compact('posts'));
     }
 

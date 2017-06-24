@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Role;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Requests\UserFormRequest;
@@ -13,8 +14,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $request->user()->authorizeRoles(['subscriber', 'admin']);
+        
         $users = User::all();
 
         return view('admin.user.index', compact('users'));
@@ -75,22 +78,13 @@ class UserController extends Controller
         $user->username = $request->username;
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
-        $user->user_role = $request->user_role;
         $user->email = $request->email;
+        
+        $this->assignRole($user, $request);
 
         $user->save();
 
         return redirect()->route('user.profile', $user->username)->with('status', 'User updated successfully!');
-
-    }
-
-    public function change_role(Request $request, User $user)
-    {
-        $user->user_role = $request->user_role;
-
-        $user->save();
-
-        return redirect()->route('users');
 
     }
 
@@ -105,5 +99,26 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users');
+    }
+
+    public function assignRole(User $user, Request $request)
+    {
+
+        $user->roles()->detach();
+
+        if ($request->role_user == 'admin') {
+
+            $user->roles()->attach(Role::where('name', 'admin')->first());
+
+        }
+
+        if ($request->role_user == 'subscriber') {
+
+            $user->roles()->attach(Role::where('name', 'subscriber')->first());
+
+        }
+
+        return redirect()->back();
+
     }
 }

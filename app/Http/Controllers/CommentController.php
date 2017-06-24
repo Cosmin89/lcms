@@ -37,6 +37,7 @@ class CommentController extends Controller
      */
     public function store(CommentFormRequest $request, Post $post)
     {
+
         $comment = new Comment();
         $comment->author = $request->author;
         $comment->email = $request->email;

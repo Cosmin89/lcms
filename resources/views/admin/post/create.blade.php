@@ -42,9 +42,8 @@
 
         <div class="form-group">
             <select name="post_status" id="">
-                <option value="draft">Post Status</option>
-                <option value="published">Published</option>
-                <option value="draft">Draft</option>
+                <option value="draft">draft</option>
+                <option value="published">published</option>
             </select>
         </div>
 

@@ -52,14 +52,15 @@
         </div>
 
         <div class="form-group">
-            <select name="post_status" id="">
-                <option value="{{ $post->status }}">{{ $post->status }}</option>
-                
-                @if($post->status == 'published')
-                    <option value="draft">Draft</option>
-                @else 
-                    <option value="published">Published</option>
-                @endif
+             <select name="post_status" id="">
+                @foreach($post->statuses as $status)
+                <option value="{{ $status->type }}">{{ $status->type }}</option>
+                    @if($post->hasStatus('published'))
+                        <option value="draft">draft</option>
+                    @else
+                        <option value="published">published</option>
+                    @endif
+                @endforeach
             </select>
         </div>
 

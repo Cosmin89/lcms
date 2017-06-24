@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Status;
 use App\Post;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostFormRequest;
@@ -43,11 +44,18 @@ class PostController extends Controller
         $post->category_id = $request->post_category;
         $post->author = $request->post_user;
         $post->user = $request->post_user;
-        $post->status = $request->post_status;
         $post->tags = $request->tags;
         $post->content = $request->content;
 
         $post->save();
+
+        if($request->post_status == 'published')
+        {
+            $post->statuses()->attach(Status::where('type', 'published')->first());
+        } else {
+            $post->statuses()->attach(Status::where('type', 'draft')->first());
+        }
+      
 
         return redirect()->route('admin');
         
@@ -87,11 +95,10 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->category_id = $request->post_category;
         $post->user = $request->post_user;
-        $post->status = $request->post_status;
         $post->tags = $request->tags;
         $post->content = $request->content;
 
-        $post->save();
+        $this->assignStatus($post, $request);
 
         return redirect()->route('post.edit', $post->id)->with('status', 'Post updated successfully!');
         
@@ -107,6 +114,26 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect()->route('post.index');
+        return redirect()->route('posts');
+    }
+
+    public function assignStatus(Post $post, Request $request)
+    {
+        $post->statuses()->detach();
+
+        if ($request->post_status == 'published') {
+
+            $post->statuses()->attach(Status::where('type', 'published')->first());
+
+        }
+
+        if ($request->post_status == 'draft') {
+
+            $post->statuses()->attach(Status::where('type', 'draft')->first());
+
+        }
+
+        return redirect()->back();
+
     }
 }

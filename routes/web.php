@@ -23,8 +23,9 @@ Route::get('/category/{category}', 'CategoryController@show')->name('category.sh
 Route::post('/search', 'HomeController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function() {
+
     Route::post('/post/{post}/comment', 'CommentController@store')->name('comment.store');
-    
+
     Route::group(['middleware' => 'admin'], function() {
         Route::get('/admin', 'Admin\AdminController@index')->name('admin');
 
@@ -35,20 +36,24 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/admin/post/{post}/edit', 'PostController@edit')->name('post.edit');
         Route::put('/admin/post/{post}', 'PostController@update')->name('post.update');
         
+        Route::post('/admin/post/{post}', 'PostController@assignStatus')->name('post.assign');
+        
         Route::delete('/admin/post/{post}', 'PostController@destroy')->name('post.destroy');
 
         Route::get('/admin/users', 'UserController@index')->name('users');
-        Route::get('admin/user/create', 'UserController@create')->name('user.create');
+        // Route::get('admin/user/create', 'UserController@create')->name('user.create');
 
         Route::get('/admin/user/{user}/profile', 'UserController@edit')->name('user.profile');
         Route::put('/admin/user/{user}', 'UserController@update')->name('user.update');
 
-        Route::post('/admin/user/{user}', 'UserController@change_role')->name('user.change_role');
+        Route::post('/admin/user/{user}', 'UserController@assignRole')->name('user.assign');
 
         Route::delete('/admin/user/{user}', 'UserController@destroy')->name('user.destroy');
-        
-    });
     
+    });
+
+    
+
 });
 
 

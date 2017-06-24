@@ -1,7 +1,6 @@
 @extends('admin.layouts.app')
 
 @section('content')
-<form action="" method="post">
     <table class="table table-bordered table-hover">
 
         <div id="bulkOptionsContainer" class="col-xs-4">
@@ -56,7 +55,24 @@
 
                 <td>{{ $post->category->title }}</td>
 
-                <td>{{ $post->status }}</td>
+                <td> 
+                <form action="{{ route('post.assign', ['id' => $post->id]) }}" method="POST">
+                    {{ csrf_field() }}
+                    
+                    <select name="post_status" id="">
+                        @foreach($post->statuses as $status)
+                        <option value="{{ $status->type }}">{{ $status->type }}</option>
+                            @if($post->hasStatus('published'))
+                                <option value="draft">draft</option>
+                            @else
+                                <option value="published">published</option>
+                            @endif
+                        @endforeach
+                    </select>
+
+                    <button type="submit" class="btn btn-primary">Assign</button>
+                </form>
+                </td>
                 <td><img width='100' src=''></td>
                 <td>{{ $post->tags }}</td>
 
@@ -78,5 +94,4 @@
             @endforeach
         </tbody>
     </table>
-</form>
 @endsection
