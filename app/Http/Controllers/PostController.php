@@ -46,17 +46,10 @@ class PostController extends Controller
         $post->user = $request->post_user;
         $post->tags = $request->tags;
         $post->content = $request->content;
+        $post->status = $request->post_status;
 
         $post->save();
-
-        if($request->post_status == 'published')
-        {
-            $post->statuses()->attach(Status::where('type', 'published')->first());
-        } else {
-            $post->statuses()->attach(Status::where('type', 'draft')->first());
-        }
       
-
         return redirect()->route('admin');
         
     }
@@ -97,8 +90,9 @@ class PostController extends Controller
         $post->user = $request->post_user;
         $post->tags = $request->tags;
         $post->content = $request->content;
+        $post->status = $request->post_status;
 
-        $this->assignStatus($post, $request);
+        $post->save();
 
         return redirect()->route('post.edit', $post->id)->with('status', 'Post updated successfully!');
         
@@ -119,19 +113,9 @@ class PostController extends Controller
 
     public function assignStatus(Post $post, Request $request)
     {
-        $post->statuses()->detach();
+        $post->status = $request->post_status;
 
-        if ($request->post_status == 'published') {
-
-            $post->statuses()->attach(Status::where('type', 'published')->first());
-
-        }
-
-        if ($request->post_status == 'draft') {
-
-            $post->statuses()->attach(Status::where('type', 'draft')->first());
-
-        }
+        $post->save();
 
         return redirect()->back();
 

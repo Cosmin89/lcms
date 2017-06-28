@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Role;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\UserFormRequest;
 
 class UserController extends Controller
@@ -30,7 +31,9 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles = Role::all();
+
+        return view('admin.user.create', compact('roles'));
     }
 
     /**
@@ -39,9 +42,31 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(UserFormRequest $request)
     {
-        //
+
+        $user = new User();
+        $user->username = $request->username;
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->email;
+        $user->password = bcrypt($request->password);
+
+        $user->save();
+
+        if ($request->role_user == 'subscriber') {
+
+            $user->roles()->attach(Role::where('name', 'subscriber')->first());
+
+        } elseif($request->role_user == 'admin') {
+
+            $user->roles()->attach(Role::where('name', 'admin')->first());
+
+        }
+
+        return redirect()->route('user.create')->with('status', 'User created successfully!');
+
+
     }
 
     /**

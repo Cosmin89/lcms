@@ -59,16 +59,16 @@
                 <form action="{{ route('post.assign', ['id' => $post->id]) }}" method="POST">
                     {{ csrf_field() }}
                     
-                    <select name="post_status" id="">
-                        @foreach($post->statuses as $status)
-                        <option value="{{ $status->type }}">{{ $status->type }}</option>
-                            @if($post->hasStatus('published'))
+                   <select name="post_status" id="">
+                        <option value="{{ $post->status}}">{{ $post->status }}</option>
+                            @if($post->status == 'published')
                                 <option value="draft">draft</option>
                             @else
                                 <option value="published">published</option>
                             @endif
-                        @endforeach
                     </select>
+
+                    {{ method_field('PUT') }}
 
                     <button type="submit" class="btn btn-primary">Assign</button>
                 </form>
@@ -84,7 +84,8 @@
                 <td>
                     <form action="{{ route('post.destroy', ['id' => $post->id]) }}" method="POST">
                         {{ csrf_field() }}
-                        <input type="hidden" name="_method" value="DELETE">
+                        
+                        {{ method_field('DELETE') }}
                         <input type="submit" class="btn btn-danger" value="Delete">
                     </form>
                 </td>

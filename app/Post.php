@@ -10,7 +10,7 @@ class Post extends Model
     use Searchable;
 
     protected $fillable = [
-        'category_id', 'title', 'author', 'user', 'content', 'tags'
+        'category_id', 'title', 'author', 'user', 'content', 'tags', 'status'
     ];
 
     public function category()
@@ -57,4 +57,5 @@ class Post extends Model
     {
         return 'posts_index';
     }
+
 }
