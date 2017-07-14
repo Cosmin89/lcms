@@ -7,19 +7,19 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <a class="navbar-brand" href="/">CMS Admin</a>
+        <a class="navbar-brand" href="/admin">CMS Admin</a>
     </div>
     <!-- Top Menu Items -->
     <ul class="nav navbar-right top-nav">
         <!--<li><a href="">Users Online: <?php //echo users_online(); ?></a></li>-->
         <li><a href="">Users Online: <span class="usersonline"></span></a></li>
-        <li><a href="#">HOME</a></li>
+        <li><a href="/">HOME</a></li>
       
         <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Auth::user()->username }} <b class="caret"></b></a>
+            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> {{ Auth::user()->username }} <b class="caret"></b></a>
             <ul class="dropdown-menu">
                 <li>
-                    <a href="#"><i class="fa fa-fw fa-user"></i> Profile</a>
+                    <a href="{{ route('user.profile', ['username' => Auth::user()->username]) }}"><i class="fa fa-fw fa-user"></i> Profile</a>
                 </li>
                 <li class="divider"></li>
                 <li>
@@ -44,7 +44,7 @@
                 <a href="{{ route('admin') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
             </li>
             <li>
-                <a href="#" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
+                <a href="javascript:;" data-toggle="collapse" data-target="#posts_dropdown"><i class="fa fa-fw fa-arrows-v"></i> Posts <i class="fa fa-fw fa-caret-down"></i></a>
                 <ul id="posts_dropdown" class="collapse">
                     <li>
                         <a href="{{ route('posts') }}">View All Posts</a>
@@ -55,10 +55,10 @@
                 </ul>
             </li>
             <li>
-                <a href="#"><i class="fa fa-fw fa-wrench"></i> Categories Page</a>
+                <a href="{{ route('categories') }}"><i class="fa fa-fw fa-wrench"></i> Categories Page</a>
             </li>
             <li class="">
-                <a href="#"><i class="fa fa-fw fa-file"></i> Comments</a>
+                <a href="{{ route('comments') }}"><i class="fa fa-fw fa-file"></i> Comments</a>
             </li>
             <li>
                 <a href="javascript:;" data-toggle="collapse" data-target="#users"><i class="fa fa-fw fa-arrows-v"></i> Users <i class="fa fa-fw fa-caret-down"></i></a>

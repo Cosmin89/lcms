@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Status;
 use App\Post;
 use App\Comment;
 use Illuminate\Http\Request;
@@ -16,7 +17,9 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::get();
+
+        return view('admin.comment.index', compact('comments'));
     }
 
     /**
@@ -42,10 +45,11 @@ class CommentController extends Controller
         $comment->author = $request->author;
         $comment->email = $request->email;
         $comment->content = $request->content;
-        $comment->status = 'approved';
         $comment->post()->associate($post);
 
         $comment->save();
+
+        $comment->statuses()->attach(Status::where('type', 'unapproved')->first());
 
         return redirect()->route('post.show', $post)->with('status', 'Comment added.');
     }
@@ -92,6 +96,28 @@ class CommentController extends Controller
      */
     public function destroy(Comment $comment)
     {
-        //
+        $comment->delete();
+
+        return redirect()->route('comments');
+    }
+
+     public function assignStatus(Comment $comment, Request $request)
+    {
+        $comment->statuses()->detach();
+
+        if ($request->comment_status == 'approved') {
+
+            $comment->statuses()->attach(Status::where('type', 'approved')->first());
+
+        }
+
+        if ($request->comment_status == 'unapproved') {
+
+            $comment->statuses()->attach(Status::where('type', 'unapproved')->first());
+
+        }
+
+        return redirect()->back();
+
     }
 }

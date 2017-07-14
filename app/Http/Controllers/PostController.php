@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Comment;
 use App\Status;
 use App\Post;
 use Illuminate\Http\Request;
@@ -28,7 +29,9 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('admin.post.create');
+        $statuses = Status::all();
+        
+        return view('admin.post.create', compact('statuses'));
     }
 
     /**
@@ -46,11 +49,23 @@ class PostController extends Controller
         $post->user = $request->post_user;
         $post->tags = $request->tags;
         $post->content = $request->content;
-        $post->status = $request->post_status;
+        // $post->status = $request->post_status;
 
         $post->save();
+
+        if ($request->post_status == 'published') {
+
+            $post->statuses()->attach(Status::where('type', 'published')->first());
+
+        }
+
+        if ($request->post_status == 'draft') {
+
+            $post->statuses()->attach(Status::where('type', 'draft')->first());
+
+        }
       
-        return redirect()->route('admin');
+        return redirect()->route('posts')->with('status', 'Post created successfully!');
         
     }
 
@@ -62,7 +77,13 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('post.show', compact('post'));
+        $post->load(['comments' => function($comments){
+            $comments->whereHas('statuses', function($status) {
+                $status->where('type', 'approved');
+            });
+        }])->get();
+
+        return view('post.show')->with(['post' => $post]);
     }
 
     /**
@@ -90,9 +111,11 @@ class PostController extends Controller
         $post->user = $request->post_user;
         $post->tags = $request->tags;
         $post->content = $request->content;
-        $post->status = $request->post_status;
+        // $post->status = $request->post_status;
 
         $post->save();
+
+        $this->assignStatus($post, $request);
 
         return redirect()->route('post.edit', $post->id)->with('status', 'Post updated successfully!');
         
@@ -113,9 +136,19 @@ class PostController extends Controller
 
     public function assignStatus(Post $post, Request $request)
     {
-        $post->status = $request->post_status;
+        $post->statuses()->detach();
 
-        $post->save();
+        if ($request->post_status == 'published') {
+
+            $post->statuses()->attach(Status::where('type', 'published')->first());
+
+        }
+
+        if ($request->post_status == 'draft') {
+
+            $post->statuses()->attach(Status::where('type', 'draft')->first());
+
+        }
 
         return redirect()->back();
 

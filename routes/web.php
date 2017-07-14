@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Auth::routes();
 
@@ -36,9 +36,17 @@ Route::group(['middleware' => 'auth'], function() {
         Route::get('/admin/post/{post}/edit', 'PostController@edit')->name('post.edit');
         Route::put('/admin/post/{post}', 'PostController@update')->name('post.update');
         
-        Route::put('/admin/post/{post}', 'PostController@assignStatus')->name('post.assign');
+        Route::post('/admin/post/{post}', 'PostController@assignStatus')->name('post.assign');
         
         Route::delete('/admin/post/{post}', 'PostController@destroy')->name('post.destroy');
+
+        Route::get('/admin/categories', 'CategoryController@index')->name('categories');
+        Route::post('/admin/category', 'CategoryController@store')->name('category.store');
+
+        Route::get('/admin/category/{category}', 'CategoryController@edit')->name('category.edit');
+        Route::put('/admin/category/{category}', 'CategoryController@update')->name('category.update');
+
+        Route::delete('/admin/category/{category}', 'CategoryController@destroy')->name('category.destroy');
 
         Route::get('/admin/users', 'UserController@index')->name('users');
         Route::get('admin/user/create', 'UserController@create')->name('user.create');
@@ -50,6 +58,11 @@ Route::group(['middleware' => 'auth'], function() {
         Route::post('/admin/user/{user}', 'UserController@assignRole')->name('user.assign');
 
         Route::delete('/admin/user/{user}', 'UserController@destroy')->name('user.destroy');
+
+        Route::get('/admin/comments', 'CommentController@index')->name('comments');
+        
+        Route::post('/admin/comment/{comment}', 'CommentController@assignStatus')->name('comment.assign');
+        Route::delete('/admin/comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
     
     });
 

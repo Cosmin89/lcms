@@ -23,7 +23,10 @@
         </div>
     </div>
 
+    
     <!-- Scripts -->
     @include('admin.layouts.partials.admin_footer')
+    @yield('scripts') 
+    
 </body>
 </html>

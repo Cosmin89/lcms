@@ -1,8 +1,12 @@
 @extends('admin.layouts.app')
 
 @section('content')
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
     <table class="table table-bordered table-hover">
-
         <div id="bulkOptionsContainer" class="col-xs-4">
             <div class="form-group">
                 <select class="form-control" name="bulk_options" id="">
@@ -60,15 +64,15 @@
                     {{ csrf_field() }}
                     
                    <select name="post_status" id="">
-                        <option value="{{ $post->status}}">{{ $post->status }}</option>
-                            @if($post->status == 'published')
-                                <option value="draft">draft</option>
-                            @else
+                        @foreach($post->statuses as $status)
+                        <option value="{{ $status->type}}">{{ $status->type }}</option>
+                            @if($status->type == 'draft')
                                 <option value="published">published</option>
+                            @else
+                                <option value="draft">draft</option>
                             @endif
+                        @endforeach
                     </select>
-
-                    {{ method_field('PUT') }}
 
                     <button type="submit" class="btn btn-primary">Assign</button>
                 </form>

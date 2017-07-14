@@ -10,6 +10,7 @@
         </h1>
         
         @foreach($posts as $post)
+            
             <!-- First Blog Post -->
             <h2>
                 <a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a>
@@ -25,7 +26,6 @@
             <a class="btn btn-primary" href="{{ route('post.show', ['id' => $post->id]) }}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
 
             <hr>
-
         @endforeach
 
         <!-- Pager -->

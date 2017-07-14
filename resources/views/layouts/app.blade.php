@@ -4,12 +4,15 @@
 <body>
     @include('layouts.partials._navigation')
 
-    <div class="container">
-        <div class="row">
-            @yield('content')
-        </div>
+    <div id="app">
+        <div class="container">
+            <div class="row">
+                @yield('content')
+            </div>
     
-    @include('layouts.partials._footer')
+        @include('layouts.partials._footer')
+    </div>
+    
 </body>
 </html>
 

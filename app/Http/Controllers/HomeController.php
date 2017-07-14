@@ -25,7 +25,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $posts = Post::where('status', 'published')->orderBy('created_at', 'DESC')->paginate(2);
+        $posts = Post::whereHas('statuses', function ($query) {
+            $query->where('type', 'published');
+        })->orderBy('created_at', 'desc')->paginate(2); 
 
         return view('home', compact('posts'));
     }

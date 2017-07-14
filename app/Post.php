@@ -10,7 +10,7 @@ class Post extends Model
     use Searchable;
 
     protected $fillable = [
-        'category_id', 'title', 'author', 'user', 'content', 'tags', 'status'
+        'category_id', 'title', 'author', 'user', 'content', 'tags'
     ];
 
     public function category()

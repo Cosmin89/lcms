@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Status;
 use App\Post;
 use App\Category;
 use Illuminate\Http\Request;
+use App\Http\Requests\CategoryFormRequest;
 
 class CategoryController extends Controller
 {
@@ -15,6 +17,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        return view('admin.category.index', compact('categories'));
 
     }
 
@@ -34,9 +37,13 @@ class CategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CategoryFormRequest $request)
     {
-        //
+        $category = new Category();
+        $category->title = $request->title;
+        $category->save();
+
+        return redirect()->route('categories')->with('status', 'Category added.');
     }
 
     /**
@@ -47,10 +54,13 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
+        $category->load(['posts' => function($posts) {
+            $posts->whereHas('statuses', function($status) {
+                $status->where('type', 'published');
+            });
+        }]);
 
-        $posts = $category->posts()->where('status', 'published')->paginate(2);
-
-        return view('category.show', compact('posts'));
+        return view('category.show', compact('category'));
     }
 
     /**
@@ -61,7 +71,8 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        // return view('admin.category.edit', compact('category'));
+        return response()->json($category);
     }
 
     /**
@@ -71,9 +82,12 @@ class CategoryController extends Controller
      * @param  \App\Category  $category
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryFormRequest $request, Category $category)
     {
-        //
+        $category->title = $request->title;
+        $category->save();
+
+        return response()->json($category);
     }
 
     /**
@@ -84,6 +98,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+
+        return redirect()->route('categories');
     }
 }

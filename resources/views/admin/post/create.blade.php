@@ -41,9 +41,9 @@
         </div>-->
 
         <div class="form-group">
-            <select name="post_status" id="">
-                <option value="draft">draft</option>
-                <option value="published">published</option>
+             <select name="post_status" id="">
+                    <option value="published">published</option>
+                    <option value="draft">draft</option>
             </select>
         </div>
 

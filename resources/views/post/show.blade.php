@@ -69,23 +69,21 @@
         <hr>
 
         <!-- Posted Comments -->
-
-        @foreach($post->comments as $comment)
-        <!-- Comment -->
-        <div class="media">
-            <a class="pull-left" href="#">
-                <img class="media-object" src="http://placehold.it/64x64" alt="">
-            </a>
-            <div class="media-body">
-                <h4 class="media-heading">{{ $comment->author }}
-                    <small>{{ $comment->created_at->diffForHumans() }}</small>
-                </h4>
-                {{ $comment->content }}
+            @foreach($post->comments as $comment)
+            <!-- Comment -->
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ $comment->author }}
+                        <small>{{ $comment->created_at->diffForHumans() }}</small>
+                    </h4>
+                    {{ $comment->content }}
+                </div>
             </div>
-        </div>
+            <hr>
         @endforeach
-
-        <hr>
     </div>
     
     @include('layouts.partials._widgets')
