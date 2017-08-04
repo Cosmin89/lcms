@@ -22,7 +22,6 @@ class CreatePostsTable extends Migration
             $table->text('image')->nullable();
             $table->text('content');
             $table->string('tags');
-            $table->integer('comment_count');
             $table->integer('views_count');
             $table->timestamps();
 

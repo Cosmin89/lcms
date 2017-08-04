@@ -26,7 +26,7 @@ class CommentFormRequest extends FormRequest
         return [
             'author' => 'required|max:255',
             'email' =>  'required|email|max:255',
-            'content' => 'required|min:5|max:1000'
+            'content' => 'required|min:5|max:1000',
         ];
     }
 }

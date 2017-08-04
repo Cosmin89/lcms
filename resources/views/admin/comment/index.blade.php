@@ -27,18 +27,16 @@
                 <td>{{ $comment->content }}</td>
                 <td>{{ $comment->email }}</td>
                 <td>                
-                    <form action="{{ route('comment.assign', ['id' => $comment->id]) }}" method="POST">
+                    <form action="{{ route('comment.approve', ['id' => $comment->id]) }}" method="POST">
                         {{ csrf_field() }}
                         
-                        <select name="comment_status" id="">
-                                @foreach($comment->statuses as $status)
-                                <option value="{{ $status->type }}">{{ $status->type }}</option>
-                                    @if($status->type == 'unapproved')
-                                        <option value="approved">approved</option>
+                        <select name="approved" id="">
+                                <option value="{{ $comment->approved }}"> {{ $comment->approved == false ? 'unapproved' : 'approved' }}</option>
+                                    @if($comment->approved == false)
+                                        <option value="1">approved</option>
                                     @else
-                                        <option value="unapproved">unapproved</option>
+                                        <option value=0>unapproved</option>
                                     @endif
-                                @endforeach
                         </select>
 
                         <button type="submit" class="btn btn-primary">Assign</button>

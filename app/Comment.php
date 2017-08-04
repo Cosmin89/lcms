@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Comment extends Model
 {
-    protected $fillable = ['author', 'email', 'content'];
+    protected $fillable = ['author', 'email', 'content', 'approved'];
 
     public function post()
     {
@@ -16,5 +16,10 @@ class Comment extends Model
     public function statuses()
     {
         return $this->belongsToMany('App\Status', 'comment_status', 'comment_id', 'status_id');
+    }
+
+    public function scopeApproved($query)
+    {
+        return $query->where('approved', true);
     }
 }

@@ -61,7 +61,7 @@ Route::group(['middleware' => 'auth'], function() {
 
         Route::get('/admin/comments', 'CommentController@index')->name('comments');
         
-        Route::post('/admin/comment/{comment}', 'CommentController@assignStatus')->name('comment.assign');
+        Route::post('/admin/comment/{comment}', 'CommentController@approveComment')->name('comment.approve');
         Route::delete('/admin/comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
     
     });

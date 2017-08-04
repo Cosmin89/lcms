@@ -58,4 +58,10 @@ class Post extends Model
         return 'posts_index';
     }
 
+    public function approvedComments()
+    {
+        return $this->hasMany('App\Comment')->approved();
+    }
+
+
 }

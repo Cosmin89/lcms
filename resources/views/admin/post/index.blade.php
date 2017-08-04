@@ -80,7 +80,7 @@
                 <td><img width='100' src=''></td>
                 <td>{{ $post->tags }}</td>
 
-                <td><a href="">{{ $post->comment_count }}</a></td>
+                <td><a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->comments->count() }}</a></td>
                 
                 <td> {{ $post->created_at }}</td>
                 <td><a class='btn btn-info' href="{{ route('post.edit', ['id' => $post->id ]) }}">Edit</a></td>

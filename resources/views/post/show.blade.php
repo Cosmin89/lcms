@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content') 
-    <!-- Blog Post Content Column -->
+
     <div class="col-lg-8">
 
         <!-- Blog Post -->
@@ -35,8 +35,8 @@
 
                     <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
                     <label for="Author">Author</label>
-                    <input type="text" name="author" class="form-control">
-                        @if($errors->has('author'))
+                    <input type="text" name="author" class="form-control" value="{{ Auth::check() ? Auth::user()->username : '' }}">
+                    @if($errors->has('author'))
                         <span class="help-block">
                             {{ $errors->first('author') }}
                         </span>
@@ -44,8 +44,8 @@
                 </div>
                 <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                     <label for="Email">Email</label>
-                    <input type="email" name="email" class="form-control">
-                        @if($errors->has('email'))
+                    <input type="email" name="email" class="form-control" value="{{ Auth::check() ? Auth::user()->email : '' }}">
+                    @if($errors->has('email'))
                         <span class="help-block">
                             {{ $errors->first('email') }}
                         </span>
@@ -69,7 +69,7 @@
         <hr>
 
         <!-- Posted Comments -->
-            @foreach($post->comments as $comment)
+            @foreach($post->approvedComments as $comment)
             <!-- Comment -->
             <div class="media">
                 <a class="pull-left" href="#">

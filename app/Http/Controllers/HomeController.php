@@ -30,10 +30,17 @@ class HomeController extends Controller
         })->orderBy('created_at', 'desc')->paginate(2); 
 
         return view('home', compact('posts'));
+
+        // $response = [
+        //     'posts' => $posts
+        // ];
+
+        // return response()->json($response, 200);
     }
 
     public function search(Request $request, Post $post){
 
+        
         if($request->has('search')) {
             $posts = $post->search($request->input('search'))->get();
         }

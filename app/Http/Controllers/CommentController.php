@@ -35,11 +35,10 @@ class CommentController extends Controller
         $comment->author = $request->author;
         $comment->email = $request->email;
         $comment->content = $request->content;
+        $comment->approved = false;
         $comment->post()->associate($post);
 
         $comment->save();
-
-        $comment->statuses()->attach(Status::where('type', 'unapproved')->first());
 
         return redirect()->route('post.show', $post)->with('status', 'Comment added.');
     }
@@ -57,23 +56,12 @@ class CommentController extends Controller
         return redirect()->route('comments');
     }
 
-     public function assignStatus(Comment $comment, Request $request)
+    public function approveComment(Comment $comment, Request $request)
     {
-        $comment->statuses()->detach();
-
-        if ($request->comment_status == 'approved') {
-
-            $comment->statuses()->attach(Status::where('type', 'approved')->first());
-
-        }
-
-        if ($request->comment_status == 'unapproved') {
-
-            $comment->statuses()->attach(Status::where('type', 'unapproved')->first());
-
-        }
+        $comment->approved = $request->approved;
+        $comment->save();
 
         return redirect()->back();
-
     }
+
 }

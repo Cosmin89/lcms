@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Comment;
 use App\Status;
 use App\Post;
@@ -77,13 +78,15 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $post->load(['comments' => function($comments){
-            $comments->whereHas('statuses', function($status) {
-                $status->where('type', 'approved');
-            });
-        }])->get();
+        if(!Auth::check() || Auth::user()->hasRole('subscriber')) {
+            foreach($post->statuses as $status)
 
-        return view('post.show')->with(['post' => $post]);
+            if($status->type == 'draft') {
+                return redirect()->back(); 
+            }
+        }
+
+        return view('post.show', compact('post'));
     }
 
     /**
