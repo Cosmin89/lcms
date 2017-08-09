@@ -37,6 +37,7 @@
         @endif
 
         @if($post->approvedComments->count() > 0)
+        
         <h3>Comments:</h3>
 
         <!-- Posted Comments -->
@@ -53,11 +54,13 @@
                     {{ $comment->content }}
                 </div>
             </div>
+
             <hr>
+
             @endforeach
         @endif
 
-        @if(!Auth::guest())
+        @if(Auth::check())
         <!-- Comments Form -->
         <div class="well">
             <h4>Leave a Comment:</h4>
