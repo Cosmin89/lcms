@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/post/{post}', 'PostController@show')->name('post.show');
 Route::get('/category/{category}', 'CategoryController@show')->name('category.show');
+Route::get('/tag/{tag}', 'TagController@show')->name('tag.show');
 Route::post('/search', 'HomeController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function() {

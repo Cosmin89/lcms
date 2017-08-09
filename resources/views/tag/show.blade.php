@@ -9,7 +9,7 @@
             <small>Secondary Text</small>
         </h1>
 
-        @foreach($category->posts as $post)
+        @foreach($tag->posts as $post)
             <!-- First Blog Post -->
             <h2>
                 <a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a>

@@ -19,10 +19,11 @@
         <p>{{ $post->content }}</p>
 
         <ol class="breadcrumb">
+        Tags: 
         @foreach($post->tags as $tag)
               <li>
-                <a href="#">{{ $tag->name }}</a>
-              </li>
+                <a href="{{ route('tag.show', ['id' => $tag->id]) }}">{{ $tag->name }}</a>
+              </li> / 
         @endforeach
          </ol>
 
