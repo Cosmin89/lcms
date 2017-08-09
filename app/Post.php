@@ -10,7 +10,7 @@ class Post extends Model
     use Searchable;
 
     protected $fillable = [
-        'category_id', 'title', 'author', 'user', 'content', 'tags'
+        'category_id', 'title', 'user', 'content'
     ];
 
     public function category()
@@ -61,6 +61,11 @@ class Post extends Model
     public function approvedComments()
     {
         return $this->hasMany('App\Comment')->approved();
+    }
+
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'taggable', 'post_id', 'tag_id');
     }
 
 

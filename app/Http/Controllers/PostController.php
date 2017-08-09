@@ -6,6 +6,7 @@ use Auth;
 use App\Comment;
 use App\Status;
 use App\Post;
+use App\Tag;
 use Illuminate\Http\Request;
 use App\Http\Requests\PostFormRequest;
 
@@ -31,8 +32,9 @@ class PostController extends Controller
     public function create()
     {
         $statuses = Status::all();
+        $tags = Tag::all();
         
-        return view('admin.post.create', compact('statuses'));
+        return view('admin.post.create', compact('statuses', 'tags'));
     }
 
     /**
@@ -46,12 +48,10 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->title;
         $post->category_id = $request->post_category;
-        $post->author = $request->post_user;
         $post->user = $request->post_user;
-        $post->tags = $request->tags;
         $post->content = $request->content;
         // $post->status = $request->post_status;
-
+        
         $post->save();
 
         if ($request->post_status == 'published') {
@@ -65,6 +65,8 @@ class PostController extends Controller
             $post->statuses()->attach(Status::where('type', 'draft')->first());
 
         }
+
+        $post->tags()->attach($request->tag);
       
         return redirect()->route('posts')->with('status', 'Post created successfully!');
         
@@ -97,7 +99,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.post.edit', compact('post'));
+        $tags = Tag::all();
+
+        return view('admin.post.edit', compact('post', 'tags'));
     }
 
     /**
@@ -112,13 +116,16 @@ class PostController extends Controller
         $post->title = $request->title;
         $post->category_id = $request->post_category;
         $post->user = $request->post_user;
-        $post->tags = $request->tags;
         $post->content = $request->content;
         // $post->status = $request->post_status;
 
         $post->save();
 
         $this->assignStatus($post, $request);
+
+        $post->tags()->detach();
+        
+        $post->tags()->attach($request->tag);
 
         return redirect()->route('post.edit', $post->id)->with('status', 'Post updated successfully!');
         

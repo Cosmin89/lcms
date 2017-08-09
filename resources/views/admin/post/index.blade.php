@@ -50,11 +50,7 @@
                 </td>
 
                 <td>{{ $post->id }}</td>
-                @if(!empty($post->author))
-                    <td>{{ $post->author }}</td>
-                @else
-                    <td>{{ $post->user }}</td>
-                @endif
+                <td>{{ $post->user }}</td>
                 <td><a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a></td>
 
                 <td>{{ $post->category->title }}</td>
@@ -78,7 +74,9 @@
                 </form>
                 </td>
                 <td><img width='100' src=''></td>
-                <td>{{ $post->tags }}</td>
+                @foreach($post->tags as $tag)
+                    <td>{{ $tag->name }}</td>
+                @endforeach
 
                 <td><a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->comments->count() }}</a></td>
                 

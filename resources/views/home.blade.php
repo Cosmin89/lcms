@@ -17,7 +17,7 @@
                 <a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a>
             </h2>
             <p class="lead">
-                by <a href="#">{{ $post->author }}</a>
+                by <a href="#">{{ $post->user }}</a>
             </p>
             <p><span class="glyphicon glyphicon-time"></span>Posted on {{ $post->created_at->diffForHumans() }}</p>
             <hr>

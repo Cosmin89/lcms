@@ -35,11 +35,6 @@
             </select>
         </div>
 
-        <!--<div class="form-group">
-            <label for="title">Post Author</label>
-            <input type="text" class="form-control" name="post_author">
-        </div>-->
-
         <div class="form-group">
              <select name="post_status" id="">
                     <option value="published">published</option>
@@ -52,15 +47,16 @@
             <input type="file" name="image">
         </div>
 
-        <div class="form-group{{ $errors->has('tags') ? ' has-error' : '' }}">
+        <div class="form-group">
             <label for="tags">Post Tags</label>
-            <input type="text" class="form-control" name="tags" value="{{ old('tags') }}">
-            @if ($errors->has('tags'))
-                <span class="help-block">
-                    <strong>{{ $errors->first('tags') }}</strong>
-                </span>
-            @endif
+            <select name="tag" id="">
+                @foreach($tags as $tag)
+                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                @endforeach
+            </select>
         </div>
+
+        
 
         <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
             <label for="content">Post Content</label>

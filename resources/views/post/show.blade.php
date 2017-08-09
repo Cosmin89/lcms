@@ -10,13 +10,21 @@
             <a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a>
         </h2>
         <p class="lead">
-            by <a href="#">{{ $post->author }}</a>
+            by <a href="#">{{ $post->user }}</a>
         </p>
         <p><span class="glyphicon glyphicon-time"></span>Posted on {{ $post->created_at->diffForHumans() }}</p>
         <hr>
         <img class="img-responsive" src="http://placehold.it/900x300" alt="">
         <hr>
         <p>{{ $post->content }}</p>
+
+        <ol class="breadcrumb">
+        @foreach($post->tags as $tag)
+              <li>
+                <a href="#">{{ $tag->name }}</a>
+              </li>
+        @endforeach
+         </ol>
 
         <hr>
 
@@ -36,7 +44,7 @@
                     <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">
                     <label for="Author">Author</label>
                     <input type="text" name="author" class="form-control" value="{{ Auth::check() ? Auth::user()->username : '' }}">
-                    @if($errors->has('author'))
+                    @if($errors->has('user'))
                         <span class="help-block">
                             {{ $errors->first('author') }}
                         </span>
