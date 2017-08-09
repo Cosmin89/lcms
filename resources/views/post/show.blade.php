@@ -35,9 +35,31 @@
                 {{ session('status') }}
             </div>
         @endif
+
+        @if($post->approvedComments->count() > 0)
+        <h3>Comments:</h3>
+
+        <!-- Posted Comments -->
+            @foreach($post->approvedComments as $comment)
+            <!-- Comment -->
+            <div class="media">
+                <a class="pull-left" href="#">
+                    <img class="media-object" src="http://placehold.it/64x64" alt="">
+                </a>
+                <div class="media-body">
+                    <h4 class="media-heading">{{ $comment->author }}
+                        <small>{{ $comment->created_at->diffForHumans() }}</small>
+                    </h4>
+                    {{ $comment->content }}
+                </div>
+            </div>
+            <hr>
+            @endforeach
+        @endif
+
+        @if(!Auth::guest())
         <!-- Comments Form -->
         <div class="well">
-        
             <h4>Leave a Comment:</h4>
             <form role="form" method="POST" action="{{ route('comment.store', ['id' => $post->id]) }}">
                 {{ csrf_field() }}
@@ -74,25 +96,8 @@
                 <button type="submit" name="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>
+        @endif
 
-        <hr>
-
-        <!-- Posted Comments -->
-            @foreach($post->approvedComments as $comment)
-            <!-- Comment -->
-            <div class="media">
-                <a class="pull-left" href="#">
-                    <img class="media-object" src="http://placehold.it/64x64" alt="">
-                </a>
-                <div class="media-body">
-                    <h4 class="media-heading">{{ $comment->author }}
-                        <small>{{ $comment->created_at->diffForHumans() }}</small>
-                    </h4>
-                    {{ $comment->content }}
-                </div>
-            </div>
-            <hr>
-        @endforeach
     </div>
     
     @include('layouts.partials._widgets')
