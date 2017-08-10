@@ -49,7 +49,7 @@
 
         <div class="form-group">
             <label for="tags">Post Tags</label>
-            <select name="tag" id="">
+            <select multiple="true" name="tag[]" id="">
                 @foreach($tags as $tag)
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endforeach

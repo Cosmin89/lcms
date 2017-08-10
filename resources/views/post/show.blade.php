@@ -23,7 +23,7 @@
         @foreach($post->tags as $tag)
               <li>
                 <a href="{{ route('tag.show', ['id' => $tag->id]) }}">{{ $tag->name }}</a>
-              </li> / 
+              </li>  
         @endforeach
          </ol>
 

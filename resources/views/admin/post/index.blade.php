@@ -74,9 +74,11 @@
                 </form>
                 </td>
                 <td><img width='100' src=''></td>
+                <td>
                 @foreach($post->tags as $tag)
-                    <td>{{ $tag->name }}</td>
+                    {{ $tag->name }}
                 @endforeach
+                </td>
 
                 <td><a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->comments->count() }}</a></td>
                 

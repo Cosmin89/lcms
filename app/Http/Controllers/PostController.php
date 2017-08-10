@@ -45,6 +45,10 @@ class PostController extends Controller
      */
     public function store(PostFormRequest $request)
     {
+        $inputs = $request->all();
+        
+        $tags = $inputs['tag'];
+
         $post = new Post();
         $post->title = $request->title;
         $post->category_id = $request->post_category;
@@ -66,7 +70,11 @@ class PostController extends Controller
 
         }
 
-        $post->tags()->attach($request->tag);
+        foreach($tags as $tag) {
+            $post->tags()->attach($tag);
+        }
+
+
       
         return redirect()->route('posts')->with('status', 'Post created successfully!');
         
