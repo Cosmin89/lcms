@@ -19,12 +19,11 @@
         <p>{{ $post->content }}</p>
 
         <ul class="nav nav-pills">
-    
-        @foreach($post->tags as $tag)
-              <li role="presentation">
-                <a href="{{ route('tag.show', ['id' => $tag->id]) }}">{{ $tag->name }}</a>
-              </li>  
-        @endforeach
+            @foreach($post->tags as $tag)
+                <li role="presentation">
+                    <a class="label label-primary" href="{{ route('tag.show', ['id' => $tag->id]) }}">{{ $tag->name }}</a>
+                </li>  
+            @endforeach
          </ul>
 
         <hr>
