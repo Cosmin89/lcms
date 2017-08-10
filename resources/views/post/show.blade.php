@@ -18,14 +18,14 @@
         <hr>
         <p>{{ $post->content }}</p>
 
-        <ol class="breadcrumb">
-        Tags: 
+        <ul class="nav nav-pills">
+    
         @foreach($post->tags as $tag)
-              <li>
+              <li role="presentation">
                 <a href="{{ route('tag.show', ['id' => $tag->id]) }}">{{ $tag->name }}</a>
               </li>  
         @endforeach
-         </ol>
+         </ul>
 
         <hr>
 
