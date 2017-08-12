@@ -3,7 +3,9 @@
 @section('content')
     <!-- Blog Entries Column -->
     <div class="col-md-8">
-    
+        
+        {!! Breadcrumbs::render('category', $category) !!}
+      
         <h1 class="page-header">
             Page Heading
             <small>Secondary Text</small>

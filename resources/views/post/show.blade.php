@@ -4,10 +4,12 @@
 
     <div class="col-lg-8">
 
+        {!! Breadcrumbs::render('post', $post) !!}
+
         <!-- Blog Post -->
         <!-- First Blog Post -->
         <h2>
-            <a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a>
+            {{ $post->title }}
         </h2>
         <p class="lead">
             by <a href="#">{{ $post->user }}</a>
@@ -18,14 +20,7 @@
         <hr>
         <p>{{ $post->content }}</p>
 
-        <ul class="nav nav-pills">
-            @foreach($post->tags as $tag)
-                <li role="presentation">
-                    <a class="label label-primary" href="{{ route('tag.show', ['id' => $tag->id]) }}">{{ $tag->name }}</a>
-                </li>  
-            @endforeach
-         </ul>
-
+      
         <hr>
 
         <!-- Blog Comments -->

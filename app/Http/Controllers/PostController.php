@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use App\Comment;
 use App\Status;
+use App\Category;
 use App\Post;
 use App\Tag;
 use Illuminate\Http\Request;

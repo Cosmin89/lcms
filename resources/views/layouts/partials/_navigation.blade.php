@@ -23,7 +23,7 @@
             
             <ul class="nav navbar-nav">
             @foreach($categories as $category)
-                <li><a href="{{ route('category.show', ['id' => $category->id])}}">{{ $category->title }}</a></li> 
+                <li><a href="{{ route('category.show', ['title' => $category->title])}}">{{ $category->title }}</a></li> 
             @endforeach
                 <li>
                     <a href="#">Contact</a>

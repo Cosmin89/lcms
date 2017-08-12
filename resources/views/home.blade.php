@@ -4,14 +4,15 @@
 
     <!-- Blog Entries Column -->
     <div class="col-md-8">
+
+        {!! Breadcrumbs::render('home') !!} 
     
         <h1 class="page-header">
             Page Heading
             <small>Secondary Text</small>
         </h1>
         
-        @foreach($posts as $post)
-            
+        @foreach($posts as $post) 
             <!-- First Blog Post -->
             <h2>
                 <a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a>

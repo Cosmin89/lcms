@@ -30,7 +30,7 @@
                 @foreach($categories as $category)
                 <ul class="list-unstyled">
                     <li>
-                        <a href="{{ route('category.show', ['id' => $category->id]) }}">{{ $category->title }}</a>
+                        <a href="{{ route('category.show', ['title' => $category->title]) }}">{{ $category->title }}</a>
                     </li>
                 </ul>
                 @endforeach

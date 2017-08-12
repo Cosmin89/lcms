@@ -18,8 +18,9 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
-Route::get('/post/{post}', 'PostController@show')->name('post.show');
 Route::get('/category/{category}', 'CategoryController@show')->name('category.show');
+Route::get('/post/{post}', 'PostController@show')->name('post.show');
+
 Route::get('/tag/{tag}', 'TagController@show')->name('tag.show');
 Route::post('/search', 'HomeController@search')->name('search');
 
@@ -28,43 +29,44 @@ Route::group(['middleware' => 'auth'], function() {
     Route::post('/post/{post}/comment', 'CommentController@store')->name('comment.store');
 
     Route::group(['middleware' => 'admin'], function() {
-        Route::get('/admin', 'Admin\AdminController@index')->name('admin');
+        Route::prefix('admin')->group(function() {
+            Route::get('/', 'Admin\AdminController@index')->name('admin');
 
-        Route::get('/admin/posts', 'PostController@index')->name('posts');
-        Route::get('/admin/post/create', 'PostController@create')->name('post.create');
-        Route::post('/admin/post', 'PostController@store')->name('post.store');
+            Route::get('posts', 'PostController@index')->name('posts');
+            Route::get('post/create', 'PostController@create')->name('post.create');
+            Route::post('post', 'PostController@store')->name('post.store');
 
-        Route::get('/admin/post/{post}/edit', 'PostController@edit')->name('post.edit');
-        Route::put('/admin/post/{post}', 'PostController@update')->name('post.update');
-        
-        Route::post('/admin/post/{post}', 'PostController@assignStatus')->name('post.assign');
-        
-        Route::delete('/admin/post/{post}', 'PostController@destroy')->name('post.destroy');
+            Route::get('post/{post}/edit', 'PostController@edit')->name('post.edit');
+            Route::put('post/{post}', 'PostController@update')->name('post.update');
+            
+            Route::post('post/{post}', 'PostController@assignStatus')->name('post.assign');
+            
+            Route::delete('post/{post}', 'PostController@destroy')->name('post.destroy');
 
-        Route::get('/admin/categories', 'CategoryController@index')->name('categories');
-        Route::post('/admin/category', 'CategoryController@store')->name('category.store');
+            Route::get('categories', 'CategoryController@index')->name('categories');
+            Route::post('category', 'CategoryController@store')->name('category.store');
 
-        Route::get('/admin/category/{category}', 'CategoryController@edit')->name('category.edit');
-        Route::put('/admin/category/{category}', 'CategoryController@update')->name('category.update');
+            Route::get('category/{category}', 'CategoryController@edit')->name('category.edit');
+            Route::put('category/{category}', 'CategoryController@update')->name('category.update');
 
-        Route::delete('/admin/category/{category}', 'CategoryController@destroy')->name('category.destroy');
+            Route::delete('category/{category}', 'CategoryController@destroy')->name('category.destroy');
 
-        Route::get('/admin/users', 'UserController@index')->name('users');
-        Route::get('admin/user/create', 'UserController@create')->name('user.create');
-        Route::post('admin/user', 'UserController@store')->name('user.store');
+            Route::get('users', 'UserController@index')->name('users');
+            Route::get('admin/user/create', 'UserController@create')->name('user.create');
+            Route::post('admin/user', 'UserController@store')->name('user.store');
 
-        Route::get('/admin/user/{user}/profile', 'UserController@edit')->name('user.profile');
-        Route::put('/admin/user/{user}', 'UserController@update')->name('user.update');
+            Route::get('user/{user}/profile', 'UserController@edit')->name('user.profile');
+            Route::put('user/{user}', 'UserController@update')->name('user.update');
 
-        Route::post('/admin/user/{user}', 'UserController@assignRole')->name('user.assign');
+            Route::post('user/{user}', 'UserController@assignRole')->name('user.assign');
 
-        Route::delete('/admin/user/{user}', 'UserController@destroy')->name('user.destroy');
+            Route::delete('user/{user}', 'UserController@destroy')->name('user.destroy');
 
-        Route::get('/admin/comments', 'CommentController@index')->name('comments');
-        
-        Route::post('/admin/comment/{comment}', 'CommentController@approveComment')->name('comment.approve');
-        Route::delete('/admin/comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
-    
+            Route::get('comments', 'CommentController@index')->name('comments');
+            
+            Route::post('comment/{comment}', 'CommentController@approveComment')->name('comment.approve');
+            Route::delete('comment/{comment}', 'CommentController@destroy')->name('comment.destroy');
+        });
     });
 
     
