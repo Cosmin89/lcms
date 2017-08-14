@@ -23,6 +23,10 @@
       
         <hr>
 
+        <p> Tags: @foreach($post->tags as $tag)
+            <a class="label label-primary" href="{{ route('tag.show', ['id' => $tag->id]) }}">{{ $tag->name }}</a>
+        @endforeach
+        </p>
         <!-- Blog Comments -->
         @if (session('status'))
             <div class="alert alert-success">

@@ -40,7 +40,7 @@ class CategoryController extends Controller
     public function store(CategoryFormRequest $request)
     {
         $category = new Category();
-        $category->title = $request->title;
+        $category->title = title_case($request->title);
         $category->save();
 
         return redirect()->route('categories')->with('status', 'Category added.');
@@ -84,7 +84,7 @@ class CategoryController extends Controller
      */
     public function update(CategoryFormRequest $request, Category $category)
     {
-        $category->title = $request->title;
+        $category->title = title_case($request->title);
         $category->save();
 
         return response()->json($category);
