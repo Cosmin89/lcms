@@ -51,7 +51,8 @@ class PostController extends Controller
         $tags = $inputs['tag'];
 
         $post = new Post();
-        $post->title = $request->title;
+        $post->title = title_case($request->title);
+        $post->slug = str_slug($request->title, '-');
         $post->category_id = $request->post_category;
         $post->user = $request->post_user;
         $post->content = $request->content;
@@ -122,7 +123,8 @@ class PostController extends Controller
      */
     public function update(PostFormRequest $request, Post $post)
     {
-        $post->title = $request->title;
+        $post->title = title_case($request->title);
+        $post->slug = str_slug($request->title, '-');
         $post->category_id = $request->post_category;
         $post->user = $request->post_user;
         $post->content = $request->content;
@@ -136,7 +138,7 @@ class PostController extends Controller
         
         $post->tags()->attach($request->tag);
 
-        return redirect()->route('post.edit', $post->id)->with('status', 'Post updated successfully!');
+        return redirect()->route('post.edit', $post->slug)->with('status', 'Post updated successfully!');
         
     }
 
@@ -173,3 +175,4 @@ class PostController extends Controller
 
     }
 }
+

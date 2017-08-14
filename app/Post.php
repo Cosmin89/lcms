@@ -10,7 +10,7 @@ class Post extends Model
     use Searchable;
 
     protected $fillable = [
-        'category_id', 'title', 'user', 'content'
+        'category_id', 'title', 'slug', 'user', 'content'
     ];
 
     public function category()
@@ -26,6 +26,11 @@ class Post extends Model
     public function statuses()
     {
         return $this->belongsToMany('App\Status', 'post_status', 'post_id', 'status_id');
+    }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
     }
 
     public function hasAnyStatus($statuses)

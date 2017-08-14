@@ -20,14 +20,14 @@
             </thead>
             <tbody id="categories-list" name="categories-list">
             @foreach($categories as $category)
-            <tr id="category{{$category->id}}">
+            <tr id="category{{$category->title}}">
                 <td>{{ $category->id }}</td>
                 <td>{{ $category->title }}</td>
-                <td><button class="btn btn-primary btn-detail open_modal" value="{{$category->id}}"><span class="glyphicon glyphicon-edit"></span> Edit</button>
+                <td><button class="btn btn-primary btn-detail open_modal" value="{{$category->title}}"><span class="glyphicon glyphicon-edit"></span> Edit</button>
                 <!--<td><a class='btn btn-info' href="{{ route('category.edit', ['id' => $category->id ]) }}">Edit</a>-->
                 </td>
                 <td>
-                    <form action="{{ route('category.destroy', ['id' => $category->id]) }}" method="POST">
+                    <form action="{{ route('category.destroy', ['title' => $category->title]) }}" method="POST">
                         {{ csrf_field() }}
                         
                         {{ method_field('DELETE') }}
@@ -35,10 +35,8 @@
                     </form>
                 </td>
             </tr>
-            
             @endforeach
-            </tbody>
-            
+            </tbody>    
         </table>
     </div>
     @include('admin.partials.modal.mymodal')
@@ -49,11 +47,11 @@
         var url = "/admin/category";
         //display modal form for category editing
          $(document).on('click', '.open_modal', function(){
-            var category_id = $(this).val();
-            $.get(url + '/' + category_id, function(data) {
+            var category_title = $(this).val();
+            $.get(url + '/' + category_title, function(data) {
                 //success
-                console.log(data);
-                $('#category_id').val(data.id);
+                // console.log(data);
+                $('#category_title').val(data.title);
                 $('#title').val(data.title);
                 $('#btn-save').val("update");
                 $('#myModal').modal('show');
@@ -79,12 +77,12 @@
             var state = $('#btn-save').val();
 
             var type = "POST";
-            var category_id = $('#category_id').val();
+            var category_title = $('#category_title').val();
             var my_url = url;
             
             if(state == "update") {
                 type = "PUT";
-                my_url += '/' + category_id;
+                my_url += '/' + category_title;
             }
             console.log(formData);
             $.ajax({
@@ -94,13 +92,13 @@
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
-                    var category = '<tr id="category' + data.id + '"><td>' + data.id + '</td><td>' + data.title + '</td>';
-                    category += '<td><button class="btn btn-primary btn-detail open_modal" value="' + data.id + '"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>';
-                    category += '<td><button class="btn btn-danger btn-delete delete-category" value="' + data.id + '">Delete</button></td></tr>';
+                    var category = '<tr id="category' + data.title + '"><td>' + data.id + '</td><td>' + data.title + '</td>';
+                    category += '<td><button class="btn btn-primary btn-detail open_modal" value="' + data.title + '"><span class="glyphicon glyphicon-edit"></span> Edit</button></td>';
+                    category += '<td><button class="btn btn-danger btn-delete delete-category" value="' + data.title + '">Delete</button></td></tr>';
                     if(state == "add"){
                         $('#categories-list').append(category);
                     }else {
-                        $("#category" + category_id).replaceWith(category);
+                        $("#category" + category_title).replaceWith(category);
                     }
                     $('#formCategories').trigger("reset");
                     $('#myModal').modal('hide');

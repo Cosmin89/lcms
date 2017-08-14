@@ -58,7 +58,7 @@
         <!-- Comments Form -->
         <div class="well">
             <h4>Leave a Comment:</h4>
-            <form role="form" method="POST" action="{{ route('comment.store', ['id' => $post->id]) }}">
+            <form role="form" method="POST" action="{{ route('comment.store', ['slug' => $post->slug]) }}">
                 {{ csrf_field() }}
 
                     <div class="form-group{{ $errors->has('author') ? ' has-error' : '' }}">

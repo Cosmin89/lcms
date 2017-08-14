@@ -55,8 +55,6 @@
             </select>
         </div>
 
-        
-
         <div class="form-group{{ $errors->has('content') ? ' has-error' : '' }}">
             <label for="content">Post Content</label>
             <textarea class="form-control" name="content" id="" cols="30" rows="10" value="{{ old('content') }}">

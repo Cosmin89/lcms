@@ -42,7 +42,7 @@
                         <button type="submit" class="btn btn-primary">Assign</button>
                     </form>
                 </td>
-                <td><a href="{{ route('post.show', ['id' => $comment->post->id]) }}">{{ $comment->post->title }}</a></td>
+                <td><a href="{{ route('post.show', ['slug' => $comment->post->slug]) }}">{{ $comment->post->title }}</a></td>
                 <td>{{ $comment->created_at->diffForHumans() }}</td>
                 <td>
                       <form action="{{ route('comment.destroy', ['id' => $comment->id]) }}" method="POST">

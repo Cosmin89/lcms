@@ -6,7 +6,7 @@
                 {{ session('status') }}
             </div>
         @endif
-    <form action="{{ route('post.update', ['id' => $post->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('post.update', ['slug' => $post->slug]) }}" method="post" enctype="multipart/form-data">
         {{ csrf_field() }}
 
         <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -20,6 +20,11 @@
             @endif
             
         </div>
+
+         <div class="form-group">
+            <label for="slug">Post Slug</label>
+            <p>{{ $post->slug }}</p>
+        </div> 
 
         <div class="form-group">
             <label for="post_category">Category</label>
@@ -39,12 +44,6 @@
             <label for="post_user">Users</label>
 
             <select name="post_user" id="">
-                @if(!empty($post->author))
-                    <option value="{{ $post->author }}">{{ $post->author }}</option>
-                @else
-                    <option value="{{ $post->user }}">{{ $post->user }}</option>
-                @endif
-
                 @foreach($users as $user)
                     <option value="{{ $user->username }}">{{ $user->username }}</option>
                 @endforeach

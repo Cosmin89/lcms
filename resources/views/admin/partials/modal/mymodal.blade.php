@@ -17,7 +17,7 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-primary" id="btn-save" value="add">Save changes</button>
-          <input type="hidden" id="category_id" name="category_id" value="0">
+          <input type="hidden" id="category_title" name="category_title" value="0">
         </div>
       </form>
     </div><!-- /.modal-content -->

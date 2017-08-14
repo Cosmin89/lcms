@@ -30,6 +30,7 @@
                 <th>Id</th>
                 <th>User</th>
                 <th>Title</th>
+                <th>Slug</th>
                 <th>Category</th>
                 <th>Status</th>
                 <th>Image</th>
@@ -46,20 +47,21 @@
             <tr>
                 <td>
                     <input class='checkBoxes' id='selectAllBoxes' type='checkbox' name='checkBoxArray[]'
-                        value="{{ $post->id }}">
+                        value="{{ $post->slug }}">
                 </td>
 
                 <td>{{ $post->id }}</td>
                 <td>{{ $post->user }}</td>
-                <td><a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->title }}</a></td>
+                <td>{{ $post->title }}</td>
+                <td><a href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->slug }}</a></td>
 
                 <td>{{ $post->category->title }}</td>
 
                 <td> 
-                <form action="{{ route('post.assign', ['id' => $post->id]) }}" method="POST">
+                <form action="{{ route('post.assign', ['slug' => $post->slug]) }}" method="POST">
                     {{ csrf_field() }}
                     
-                   <select name="post_status" id="">
+                    <select name="post_status" id="">
                         @foreach($post->statuses as $status)
                         <option value="{{ $status->type}}">{{ $status->type }}</option>
                             @if($status->type == 'draft')
@@ -80,13 +82,13 @@
                 @endforeach
                 </td>
 
-                <td><a href="{{ route('post.show', ['id' => $post->id]) }}">{{ $post->comments->count() }}</a></td>
+                <td><a href="{{ route('post.show', ['slug' => $post->slug]) }}">{{ $post->comments->count() }}</a></td>
                 
                 <td> {{ $post->created_at }}</td>
-                <td><a class='btn btn-info' href="{{ route('post.edit', ['id' => $post->id ]) }}">Edit</a></td>
+                <td><a class='btn btn-info' href="{{ route('post.edit', ['slug' => $post->slug ]) }}">Edit</a></td>
                 
                 <td>
-                    <form action="{{ route('post.destroy', ['id' => $post->id]) }}" method="POST">
+                    <form action="{{ route('post.destroy', ['slug' => $post->slug]) }}" method="POST">
                         {{ csrf_field() }}
                         
                         {{ method_field('DELETE') }}

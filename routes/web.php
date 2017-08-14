@@ -39,8 +39,7 @@ Route::group(['middleware' => 'auth'], function() {
             Route::get('post/{post}/edit', 'PostController@edit')->name('post.edit');
             Route::put('post/{post}', 'PostController@update')->name('post.update');
             
-            Route::post('post/{post}', 'PostController@assignStatus')->name('post.assign');
-            
+            Route::post('post/{post}', 'PostController@assignStatus')->name('post.assign');  
             Route::delete('post/{post}', 'PostController@destroy')->name('post.destroy');
 
             Route::get('categories', 'CategoryController@index')->name('categories');
@@ -52,8 +51,8 @@ Route::group(['middleware' => 'auth'], function() {
             Route::delete('category/{category}', 'CategoryController@destroy')->name('category.destroy');
 
             Route::get('users', 'UserController@index')->name('users');
-            Route::get('admin/user/create', 'UserController@create')->name('user.create');
-            Route::post('admin/user', 'UserController@store')->name('user.store');
+            Route::get('user/create', 'UserController@create')->name('user.create');
+            Route::post('user', 'UserController@store')->name('user.store');
 
             Route::get('user/{user}/profile', 'UserController@edit')->name('user.profile');
             Route::put('user/{user}', 'UserController@update')->name('user.update');
