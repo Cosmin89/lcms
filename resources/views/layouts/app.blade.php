@@ -4,8 +4,7 @@
 <body>
     @include('layouts.partials._navigation')
 
-    <div id="app">
-        <div class="container">
+    <div class="container">
             
             <div class="row">
                 @yield('content')
