@@ -13,6 +13,7 @@ class AdminController extends Controller
 {
     public function index()
     {
+
         $post_count = Post::count();
         $comment_count = Comment::count();
         $category_count = Category::count();

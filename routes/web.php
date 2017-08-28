@@ -1,5 +1,7 @@
 <?php
 
+use App\Events\UsersOnline;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,6 +19,8 @@
 
 Auth::routes();
 
+
+
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/category/{category}', 'CategoryController@show')->name('category.show');
 Route::get('/post/{post}', 'PostController@show')->name('post.show');
@@ -26,10 +30,17 @@ Route::post('/search', 'HomeController@search')->name('search');
 
 Route::group(['middleware' => 'auth'], function() {
 
+    Route::get('/usersonline', function() {
+        $user = Auth::user();
+        
+        broadcast(new UsersOnline($user))->toOthers();
+    });
+
     Route::post('/post/{post}/comment', 'CommentController@store')->name('comment.store');
 
     Route::group(['middleware' => 'admin'], function() {
         Route::prefix('admin')->group(function() {
+
             Route::get('/', 'Admin\AdminController@index')->name('admin');
 
             Route::get('posts', 'PostController@index')->name('posts');

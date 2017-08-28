@@ -1,4 +1,5 @@
 
+
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -20,7 +21,7 @@
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
              <!--Left Side Of Navbar -->
-            
+
             <ul class="nav navbar-nav">
             @foreach($categories as $category)
                 <li><a href="{{ route('category.show', ['title' => $category->title])}}">{{ $category->title }}</a></li> 
@@ -28,6 +29,7 @@
                 <li>
                     <a href="#">Contact</a>
                 </li>
+
             </ul>
             
 
@@ -39,7 +41,7 @@
                     <li><a href="{{ route('register') }}">Register</a></li>
                 @else
                     <li class="dropdown">
-                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+                        <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" >
                             {{ Auth::user()->username }} <span class="caret"></span>
                         </a>
 

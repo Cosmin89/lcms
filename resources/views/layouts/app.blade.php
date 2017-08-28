@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+
 <html lang="{{ app()->getLocale() }}">
     @include('layouts.partials._head')
 <body>
@@ -6,6 +6,7 @@
 
     <div id="app">
         <div class="container">
+            
             <div class="row">
                 @yield('content')
             </div>

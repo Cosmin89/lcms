@@ -7,7 +7,7 @@
 
 require('./bootstrap');
 
-import router from './routes';
+window.Vue = require('vue');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -15,11 +15,26 @@ import router from './routes';
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-// Vue.component('example', require('./components/Example.vue'));
-// Vue.component('post',  require('./components/Post.vue'))
+Vue.component('example', require('./components/Example.vue'));
 
-new Vue({
+const app = new Vue({
     el: '#app',
+    data: {
+        usersInRoom: []
+    },
 
-    router
+    created() {
+        Echo.join('online')
+                .here((users) => {
+                    this.usersInRoom = users;
+                })
+    
+                .joining((user) => {
+                    this.usersInRoom.push(user);
+                })
+    
+                .leaving((user) => {
+                    this.usersInRoom = this.usersInRoom.filter(u => u != user)
+                })
+    }
 });

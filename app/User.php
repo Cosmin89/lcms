@@ -59,12 +59,7 @@ class User extends Authenticatable
 
         return false;
     }
-
-    public function isOnline()
-    {
-        return Cache::has('user-is-online-' . $this->id);
-    }
-
+    
     public function getRouteKeyName()
     {
         return 'username';
