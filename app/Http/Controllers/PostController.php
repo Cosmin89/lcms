@@ -50,12 +50,14 @@ class PostController extends Controller
         
         $tags = $inputs['tag'];
 
-        $post = new Post();
-        $post->title = title_case($request->title);
-        $post->slug = str_slug($request->title, '-');
-        $post->category_id = $request->post_category;
-        $post->user = $request->post_user;
-        $post->content = $request->content;
+        $post = new Post([
+            'title' => title_case($request->title),
+            'slug' => str_slug($request->title, '-'),
+            'category_id' => $request->post_category,
+            'user' => $request->post_user,
+            'content' => $request->content
+        ]);
+
         // $post->status = $request->post_status;
         
         $post->save();
@@ -76,8 +78,6 @@ class PostController extends Controller
             $post->tags()->attach($tag);
         }
 
-
-      
         return redirect()->route('posts')->with('status', 'Post created successfully!');
         
     }

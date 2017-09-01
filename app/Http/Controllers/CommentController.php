@@ -30,12 +30,13 @@ class CommentController extends Controller
      */
     public function store(CommentFormRequest $request, Post $post)
     {
-
-        $comment = new Comment();
-        $comment->author = $request->author;
-        $comment->email = $request->email;
-        $comment->content = $request->content;
-        $comment->approved = false;
+        $comment = new Comment([
+            'author' => $request->author,
+            'email' => $request->email,
+            'content' => $request->content,
+            'approved' => false
+        ]);
+       
         $comment->post()->associate($post);
 
         $comment->save();

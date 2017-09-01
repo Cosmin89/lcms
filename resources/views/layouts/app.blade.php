@@ -5,7 +5,6 @@
     @include('layouts.partials._navigation')
 
     <div class="container">
-            
             <div class="row">
                 @yield('content')
             </div>

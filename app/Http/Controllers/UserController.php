@@ -44,13 +44,13 @@ class UserController extends Controller
      */
     public function store(UserFormRequest $request)
     {
-
-        $user = new User();
-        $user->username = $request->username;
-        $user->first_name = $request->first_name;
-        $user->last_name = $request->last_name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+        $user = new User([
+            'username' => $request->username,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => bcrypt($request->password)
+        ]);
 
         $user->save();
 
