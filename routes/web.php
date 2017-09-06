@@ -38,7 +38,7 @@ Route::group(['middleware' => 'auth'], function() {
 
     Route::post('/post/{post}/comment', 'CommentController@store')->name('comment.store');
 
-    Route::group(['middleware' => 'admin'], function() {
+    Route::group(['middleware' => 'role:admin'], function() {
         Route::prefix('admin')->group(function() {
 
             Route::get('/', 'Admin\AdminController@index')->name('admin');

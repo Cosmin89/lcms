@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Status;
 use App\Post;
 use Illuminate\Http\Request;
-use Spatie\Menu\Laravel\Link;
-use Spatie\Menu\Laravel\Menu;
 
 class HomeController extends Controller
 {
@@ -31,16 +29,7 @@ class HomeController extends Controller
             $query->where('type', 'published');
         })->orderBy('created_at', 'desc')->paginate(2);
 
-        $menu = Menu::new()
-        ->add(Link::to('/', 'Home'));
-
         return view('home', compact('posts', 'menu'));
-
-        // $response = [
-        //     'posts' => $posts
-        // ];
-
-        // return response()->json($response, 200);
     }
 
     public function search(Request $request, Post $post){

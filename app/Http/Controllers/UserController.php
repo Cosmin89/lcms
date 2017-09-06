@@ -17,7 +17,7 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        $request->user()->authorizeRoles(['subscriber', 'admin']);
+        // $request->user()->authorizeRoles(['subscriber', 'admin']);
         
         $users = User::all();
 
